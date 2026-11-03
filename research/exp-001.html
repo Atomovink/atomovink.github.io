@@ -1,0 +1,111 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>EXP-001 · Atomovink Research</title>
+<meta name="description" content="Why does AI-discovered stability collapse on more complete reference hulls? Research plan for decomposing and predicting reference-hull sensitivity of generative crystal models.">
+<meta property="og:title" content="EXP-001: Why does AI-discovered stability collapse on more complete reference hulls?">
+<meta property="og:description" content="Decomposing and predicting reference-hull sensitivity of generative crystal models.">
+<meta property="og:image" content="https://atomovink.github.io/assets/img/og.png">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="/favicon.ico" sizes="48x48">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<meta name="theme-color" content="#0F2E2A">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,100..900&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="/assets/css/tokens.css">
+<link rel="stylesheet" href="/assets/css/site.css">
+</head>
+<body>
+
+<header class="header">
+  <div class="wrap">
+    <a class="logo" href="/" aria-label="Atomovink home">
+      <img class="logo-light" src="/assets/img/atomovink-logo-light.svg" alt="Atomovink">
+      <img class="logo-dark" src="/assets/img/atomovink-logo-dark.svg" alt="Atomovink">
+    </a>
+    <nav>
+      <a href="/#research">Research</a>
+      <a href="/#tools">Tools</a>
+      <a href="/#log">Log</a>
+      <a href="/#about">About</a>
+      <a class="btn" href="/#contact">Contact</a>
+    </nav>
+  </div>
+</header>
+
+<main class="article">
+  <div class="wrap">
+    <div class="eyebrow">Research · EXP-001</div>
+    <h1>Why does AI-discovered stability collapse on more complete reference hulls?</h1>
+    <p class="lead">Decomposing and predicting reference-hull sensitivity of generative crystal models.</p>
+    <div class="meta">
+      <span class="tag live">In progress</span>
+      <span class="tag">Started 3 Nov 2026</span>
+      <span class="tag">Generative AI · MLIPs · Thermodynamic stability</span>
+    </div>
+
+    <h2>The observation</h2>
+    <p>Generative models propose new crystals, and their success is usually measured by how many are stable, unique and novel (SUN). Stability is judged against a convex hull built from a reference database. The same samples score very differently depending on that reference:</p>
+    <div class="table-scroll">
+      <table>
+        <thead><tr><th>Model</th><th>SUN vs MP-20</th><th>SUN vs LeMat-Bulk</th></tr></thead>
+        <tbody>
+          <tr><td>MatterGen</td><td class="num">3.5%</td><td class="num">0.1%</td></tr>
+          <tr><td>DiffCSP</td><td class="num">3.8%</td><td class="num">0.2%</td></tr>
+          <tr><td>PLaID++</td><td class="num">12.0%</td><td class="num">1.0%</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="small muted">Source: LeMat-GenBench (arXiv 2512.04562), UMA potential, pre-relaxation tables. MatterGen's own paper reports a similar effect: 13% below the hull against Materials Project versus 3% against Alex-MP-ICSD.</p>
+
+    <h2>The gap</h2>
+    <p>The drop has been reported but not explained. We do not know how much of it comes from lost novelty (the "new" material is already in the larger database) versus displaced stability (a newly added phase lowers the hull), which chemistries are most affected, or whether fragile claims can be spotted in advance.</p>
+    <p>Related work studies a different axis: chemistry-resolved disagreement between PBE(+U) and r2SCAN stability verdicts in GNoME (arXiv 2610.33101). LeMat-GenBench already covers ensembles of potentials and self-consistent hulls.</p>
+
+    <h2>Research question</h2>
+    <div class="callout">Why do generative models' stability and novelty rates collapse on more complete reference hulls, and can we predict which "stable" claims are fragile?</div>
+
+    <h2>Method</h2>
+    <ol>
+      <li><strong>Candidates:</strong> public samples from MatterGen, DiffCSP and other generators, plus a control set of known structures.</li>
+      <li><strong>Nested references</strong> built from LeMat-Bulk by source: H1 = Materials Project, H2 = H1 + Alexandria, H3 = H2 + OQMD.</li>
+      <li><strong>Self-consistent hulls:</strong> the same ML potential scores candidates and reference phases (released MACE energies for LeMat-Bulk), with DFT hulls as a secondary check.</li>
+      <li><strong>Decomposition:</strong> every lost SUN label is classed as lost novelty, displaced stability (with the responsible phase recorded), or both.</li>
+      <li><strong>Fragility analysis</strong> by number of elements, reference-phase density, element groups and generator.</li>
+      <li><strong>Hull-confidence score:</strong> a simple, interpretable predictor of whether a stability claim survives more reference data, tested on held-out chemical systems.</li>
+    </ol>
+
+    <h2>Safeguards</h2>
+    <ul>
+      <li>ML potentials are not DFT: results say "predicted stable".</li>
+      <li>Even the largest reference is incomplete, so survival rates are upper bounds.</li>
+      <li>Energy references are kept consistent and never silently mixed.</li>
+      <li>Thermodynamic stability is not synthesizability.</li>
+      <li>Every source ID, database version and model version is recorded.</li>
+    </ul>
+
+    <h2>Outputs</h2>
+    <ul>
+      <li>Open code and a frozen, versioned set of nested reference hulls</li>
+      <li>A dataset of every candidate's labels under each hull</li>
+      <li>The hull-confidence score as a reusable tool (the basis of Atomovink Verify)</li>
+      <li>A technical report, and a preprint if the results hold</li>
+    </ul>
+
+    <p style="margin-top:40px"><a class="btn" href="https://github.com/Atomovink/atomovink-research/tree/main/experiments/exp-001-generative-materials-audit">Plan, code and data manifests on GitHub</a></p>
+  </div>
+</main>
+
+<footer>
+  <div class="wrap">
+    <span>© 2026 Atomovink. Atomovink and the Atomovink symbol are trademarks of Atomovink.</span>
+    <span><a href="/">Home</a></span>
+  </div>
+</footer>
+
+</body>
+</html>

@@ -1,0 +1,172 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Atomovink · AI for Materials Discovery</title>
+<meta name="description" content="Atomovink is an independent research lab building open tools and research that help scientists trust and accelerate AI-driven materials discovery.">
+<meta property="og:title" content="Atomovink · AI for Materials Discovery">
+<meta property="og:description" content="Open research and tools for trustworthy AI-driven materials discovery.">
+<meta property="og:image" content="https://atomovink.github.io/assets/img/og.png">
+<meta property="og:type" content="website">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="/favicon.ico" sizes="48x48">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="manifest" href="/site.webmanifest">
+<meta name="theme-color" content="#0F2E2A">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,100..900&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="/assets/css/tokens.css">
+<link rel="stylesheet" href="/assets/css/site.css">
+</head>
+<body>
+
+<header class="header">
+  <div class="wrap">
+    <a class="logo" href="/" aria-label="Atomovink home">
+      <img class="logo-light" src="/assets/img/atomovink-logo-light.svg" alt="Atomovink">
+      <img class="logo-dark" src="/assets/img/atomovink-logo-dark.svg" alt="Atomovink">
+    </a>
+    <nav>
+      <a href="#research">Research</a>
+      <a href="#tools">Tools</a>
+      <a href="#log">Log</a>
+      <a href="#about">About</a>
+      <a class="btn" href="#contact">Contact</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+  <section class="hero">
+    <div class="wrap">
+      <div class="eyebrow">AI for Materials Discovery</div>
+      <h1>Making AI-discovered materials worth trusting.</h1>
+      <p class="lead">Atomovink is an independent research lab working where machine learning meets materials science. We build open, reproducible research and tools that help scientists tell which AI predictions to act on, and which to question.</p>
+      <div class="actions">
+        <a class="btn" href="/research/exp-001.html">Read EXP-001</a>
+        <a class="btn btn-ghost" href="https://github.com/Atomovink">GitHub</a>
+      </div>
+    </div>
+  </section>
+
+  <section id="focus">
+    <div class="wrap">
+      <div class="section-head">
+        <div class="eyebrow">What we work on</div>
+        <h2>Three areas, one question: can we trust it?</h2>
+      </div>
+      <div class="grid">
+        <div class="card">
+          <h3>Validation of AI-generated materials</h3>
+          <p>Stability, novelty and reliability checks for crystals proposed by generative models, using machine-learning interatomic potentials and open databases.</p>
+        </div>
+        <div class="card">
+          <h3>Experiment design with small data</h3>
+          <p>Uncertainty-aware models and Bayesian optimisation that suggest the next experiment for formulation and materials R&amp;D teams.</p>
+        </div>
+        <div class="card">
+          <h3>Scientific data from literature</h3>
+          <p>Turning papers into structured, checkable materials data: compositions, synthesis conditions and measured properties.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="research">
+    <div class="wrap">
+      <div class="section-head">
+        <div class="eyebrow">Research</div>
+        <h2>Current experiment</h2>
+      </div>
+      <div class="feature">
+        <div>
+          <div class="eyebrow">EXP-001 · In progress</div>
+          <h3>Why does AI-discovered stability collapse on more complete reference hulls?</h3>
+          <p>When the reference database grows, the share of generative-model crystals that count as stable, unique and novel drops sharply, but nobody has explained why. EXP-001 separates lost novelty from displaced stability, finds which chemistries are fragile, and tests whether fragility can be predicted.</p>
+          <p><a href="/research/exp-001.html">Read the research plan →</a></p>
+        </div>
+        <div class="stats">
+          <div class="stat"><div class="small">MatterGen SUN rate, MP-20 reference</div><div class="num">3.5%</div></div>
+          <div class="stat"><div class="small">Same samples, LeMat-Bulk reference</div><div class="num">0.1%</div></div>
+          <div class="stat"><div class="small">Source: LeMat-GenBench (arXiv 2512.04562), UMA, pre-relaxation</div></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="tools">
+    <div class="wrap">
+      <div class="section-head">
+        <div class="eyebrow">Tools</div>
+        <h2>Open tools, built in public</h2>
+        <p class="muted">Each tool comes out of our research and is released with code, a live demo and documented limitations.</p>
+      </div>
+      <div class="grid grid-2">
+        <div class="card">
+          <span class="tag">In development</span>
+          <h3>Atomovink Verify</h3>
+          <p>Upload a crystal structure or a batch of generated candidates. Get a relaxed structure, energy above hull against several databases, a novelty check and a confidence warning.</p>
+        </div>
+        <div class="card">
+          <span class="tag">Planned</span>
+          <h3>Atomovink Optimize</h3>
+          <p>Small-data machine learning with uncertainty and Bayesian optimisation that recommends the next experiments for a formulation or materials target.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="log">
+    <div class="wrap">
+      <div class="section-head">
+        <div class="eyebrow">Research log</div>
+        <h2>Progress, as it happens</h2>
+      </div>
+      <ul class="log">
+        <li><time datetime="2026-11-03">3 Nov 2026</time><div><strong>EXP-001 topic finalised.</strong> Three rounds of literature checks showed that the collapse of generative stability rates under larger references is reported but not explained. That is the gap EXP-001 targets.</div></li>
+        <li><time datetime="2026-11-03">3 Nov 2026</time><div><strong>Atomovink launched.</strong> Brand, research repository and this site published.</div></li>
+      </ul>
+    </div>
+  </section>
+
+  <section id="about">
+    <div class="wrap">
+      <div class="section-head">
+        <div class="eyebrow">About</div>
+        <h2>An independent lab, starting small</h2>
+      </div>
+      <!-- TODO: confirm founder name and add a short personal bio -->
+      <p class="lead">Atomovink is founded by Navin, a materials science engineer with a background in software and AI.</p>
+      <p>The lab is early-stage and self-funded. We publish everything we can: code, data manifests, methods and limitations, so that others can check and build on the work. ML predictions are reported as predictions, never as experimental facts.</p>
+    </div>
+  </section>
+
+  <section id="contact">
+    <div class="wrap">
+      <div class="section-head">
+        <div class="eyebrow">Contact</div>
+        <h2>Working on materials R&amp;D or AI for science?</h2>
+        <p>Researchers, R&amp;D teams and companies are welcome to get in touch, whether to discuss the research, try a tool or collaborate.</p>
+      </div>
+      <div class="actions" style="display:flex;flex-wrap:wrap;gap:12px">
+        <!-- TODO: replace with your public contact email and LinkedIn profile URL -->
+        <a class="btn" href="mailto:hello@example.com">Email</a>
+        <a class="btn btn-ghost" href="https://www.linkedin.com/">LinkedIn</a>
+        <a class="btn btn-ghost" href="https://github.com/Atomovink">GitHub</a>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <span>© 2026 Atomovink. Atomovink and the Atomovink symbol are trademarks of Atomovink.</span>
+    <span><a href="https://github.com/Atomovink/atomovink-research">Research repository</a></span>
+  </div>
+</footer>
+
+</body>
+</html>
